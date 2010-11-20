@@ -1,0 +1,702 @@
+<!doctype html>
+<!--
+
+     *******   *******   ********
+    **/////** /**////** **////// 
+   **     //**/**   /**/**       
+  /**      /**/******* /*********
+  /**      /**/**////  ////////**
+  //**     ** /**             /**
+   //*******  /**       ******** 
+    ///////   //       ////////
+
+  OPS (One Page Site) theme for tumblr.
+  Version: 0.1.0
+  http://ops-theme.tumblr.com
+
+  By Javan Makhmali
+  http://javan.us
+      
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="text:URL" content="" />
+  <meta name="if:Show URL" content="0" />
+  
+  <meta name="text:Street Address" content="" />
+  <meta name="if:Show Street Address" content="0" />
+  
+  <meta name="text:City" content="" />
+  <meta name="if:Show City" content="0" />
+  
+  <meta name="text:State" content="" />
+  <meta name="text:State Abbr" content="" />
+  <meta name="if:Show State" content="0" />
+  
+  <meta name="text:Zip Code" content="" />
+  <meta name="if:Show Zip Code" content="0" />
+  
+  <meta name="text:Country" content="USA" />
+  <meta name="if:Show Country" content="0" />
+  
+  <meta name="text:Phone Number" content="" />
+  <meta name="if:Show Phone Number" content="0" />
+  
+  <meta name="text:Fax Number" content="" />
+  <meta name="if:Show Fax Number" content="0" />
+  
+  <meta name="text:Email" content="" />
+  <meta name="if:Show Email" content="1" />
+  
+  <meta name="text:Flickr UserID" content="" />
+  <meta name="text:Flickr API Key" content="fb9b32f9c4198fb7e58b4790263298b6" />
+  <meta name="text:Flickr Tag" content="website" />
+  <meta name="text:Flickr Gallery Placement" content="p" />
+  
+  <meta name="image:Logo" content="" />
+  <meta name="text:Logo Width" content="300" />
+  <meta name="text:Logo Height" content="175" />
+  
+  <meta name="image:Background" content="" />
+  
+  <meta name="color:Link" content="#0d2443" />
+  <meta name="description" content="{MetaDescription}" />
+
+  <title>{Title}</title>
+  
+  <link rel="shortcut icon" href="{Favicon}" />
+  <link rel="apple-touch-icon" href="{PortraitURL-128}"/>
+  
+  <style type="text/css" media="screen">
+  html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+        
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #fff;
+      {block:IfBackgroundImage}
+        background-image: url({image:Background});
+      {/block:IfBackgroundImage}
+      font: 15px/1.4 'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+      font-weight: 200;
+      color: #111;
+      text-shadow: 1px 1px 0px #f5f5f5;
+    }
+
+    h1 {
+      padding: 0;
+      margin: 0;
+      {block:IfLogoImage}
+        width: {text:Logo Width}px;
+        height: {text:Logo Height}px;
+        background: transparent url({image:Logo}) no-repeat 0 0;
+        text-indent: -9999px;
+      {/block:IfLogoImage}
+    }
+    
+    h2 {
+      margin: 10px 0 20px 0;
+      padding: 0;
+      font-size: 21px;
+      line-height: 1.2;
+      font-weight: 200;
+    }
+    
+    h3 {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    
+    a {
+      color: {color:Link};
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    select {
+      color: #333;
+    }
+    
+    .vcard {
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+    
+    .vcard .fax {
+      font-weight: 200;
+    }
+    
+    .vcard .type {
+      display: none;
+    }
+    
+    {block:IfNotShowURL}
+      .vcard .url { display: none; }
+    {/block:IfNotShowURL}
+    
+    {block:IfNotShowStreetAddress}
+      .vcard .street-address { display: none; }
+    {/block:IfNotShowStreetAddress}
+    
+    {block:IfNotShowCity}
+      .vcard .locality,
+      .vcard .locality-extra { display: none; }
+    {/block:IfNotShowCity}
+    
+    {block:IfNotShowState}
+      .vcard .region { display: none; }
+    {/block:IfNotShowState}
+    
+    {block:IfNotShowZipCode}
+      .vcard .postal-code { display: none; }
+    {/block:IfNotShowZipCode}
+    
+    {block:IfNotShowCountry}
+      .vcard .country-name { display: none; }
+    {/block:IfNotShowCountry}
+    
+    {block:IfNotShowPhoneNumber}
+      .vcard .phone { display: none; }
+    {/block:IfNotShowPhoneNumber}
+    
+    {block:IfNotShowFaxNumber}
+      .vcard .fax { display: none; }
+    {/block:IfNotShowFaxNumber}
+    
+    {block:IfNotShowEmail}
+      .vcard .email { display: none; }
+    {/block:IfNotShowEmail}
+
+    .container {
+      clear: both;
+    }
+    
+    .top {
+      color: #020803;
+    }
+    
+    .post {
+      letter-spacing: 0.02em;
+    }
+    
+    p,
+    .container {
+      margin-bottom: 20px;
+    }
+    
+    p.footer {
+      font-size: 11px;
+      color: #666;
+      margin-top: 40px;
+    }
+      p.footer a { text-decoration: none; }
+      p.footer .flickr { display: none; }
+    
+    .bg_image {
+      background-postion: top left;
+      background-repeat: no-repeat;
+    }
+    
+    .rounded {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+    }
+    
+    #gallery {
+      line-height: 0;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    
+    #gallery #loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    
+    .thumbnail {
+      border: 0;
+      width: 75px;
+      height: 75px;
+      float: left;
+      margin: 0 5px 5px 0;
+      padding: 0;
+    }
+    
+    .faded {
+      opacity: 0;
+    }
+    
+    .fade {
+      -webkit-transition: opacity 0.6s linear;
+    }
+    
+    /*
+    	Variable Grid System.
+    	Learn more ~ http://www.spry-soft.com/grids/
+    	Based on 960 Grid System - http://960.gs/
+
+    	Licensed under GPL and MIT.
+    */
+
+
+    /* Containers
+    ----------------------------------------------------------------------------------------------------*/
+    .container_8 {
+    	margin-left: auto;
+    	margin-right: auto;
+    	width: 640px;
+    }
+
+    /* Grid >> Global
+    ----------------------------------------------------------------------------------------------------*/
+
+    .grid_1,
+    .grid_2,
+    .grid_3,
+    .grid_4,
+    .grid_5,
+    .grid_6,
+    .grid_7,
+    .grid_8 {
+    	display:inline;
+    	float: left;
+    	position: relative;
+    	margin-left: 10px;
+    	margin-right: 10px;
+    }
+
+    /* Grid >> Children (Alpha ~ First, Omega ~ Last)
+    ----------------------------------------------------------------------------------------------------*/
+
+    .alpha {
+    	margin-left: 0;
+    }
+
+    .omega {
+    	margin-right: 0;
+    }
+
+    /* Grid >> 8 Columns
+    ----------------------------------------------------------------------------------------------------*/
+
+    .container_8 .grid_1 {
+    	width:60px;
+    }
+
+    .container_8 .grid_2 {
+    	width:140px;
+    }
+
+    .container_8 .grid_3 {
+    	width:220px;
+    }
+
+    .container_8 .grid_4 {
+    	width:300px;
+    }
+
+    .container_8 .grid_5 {
+    	width:380px;
+    }
+
+    .container_8 .grid_6 {
+    	width:460px;
+    }
+
+    .container_8 .grid_7 {
+    	width:540px;
+    }
+
+    .container_8 .grid_8 {
+    	width:620px;
+    }
+
+
+
+    /* Prefix Extra Space >> 8 Columns
+    ----------------------------------------------------------------------------------------------------*/
+
+    .container_8 .prefix_1 {
+    	padding-left:80px;
+    }
+
+    .container_8 .prefix_2 {
+    	padding-left:160px;
+    }
+
+    .container_8 .prefix_3 {
+    	padding-left:240px;
+    }
+
+    .container_8 .prefix_4 {
+    	padding-left:320px;
+    }
+
+    .container_8 .prefix_5 {
+    	padding-left:400px;
+    }
+
+    .container_8 .prefix_6 {
+    	padding-left:480px;
+    }
+
+    .container_8 .prefix_7 {
+    	padding-left:560px;
+    }
+
+
+
+    /* Suffix Extra Space >> 8 Columns
+    ----------------------------------------------------------------------------------------------------*/
+
+    .container_8 .suffix_1 {
+    	padding-right:80px;
+    }
+
+    .container_8 .suffix_2 {
+    	padding-right:160px;
+    }
+
+    .container_8 .suffix_3 {
+    	padding-right:240px;
+    }
+
+    .container_8 .suffix_4 {
+    	padding-right:320px;
+    }
+
+    .container_8 .suffix_5 {
+    	padding-right:400px;
+    }
+
+    .container_8 .suffix_6 {
+    	padding-right:480px;
+    }
+
+    .container_8 .suffix_7 {
+    	padding-right:560px;
+    }
+
+
+
+    /* Push Space >> 8 Columns
+    ----------------------------------------------------------------------------------------------------*/
+
+    .container_8 .push_1 {
+    	left:80px;
+    }
+
+    .container_8 .push_2 {
+    	left:160px;
+    }
+
+    .container_8 .push_3 {
+    	left:240px;
+    }
+
+    .container_8 .push_4 {
+    	left:320px;
+    }
+
+    .container_8 .push_5 {
+    	left:400px;
+    }
+
+    .container_8 .push_6 {
+    	left:480px;
+    }
+
+    .container_8 .push_7 {
+    	left:560px;
+    }
+
+
+
+    /* Pull Space >> 8 Columns
+    ----------------------------------------------------------------------------------------------------*/
+
+    .container_8 .pull_1 {
+    	left:-80px;
+    }
+
+    .container_8 .pull_2 {
+    	left:-160px;
+    }
+
+    .container_8 .pull_3 {
+    	left:-240px;
+    }
+
+    .container_8 .pull_4 {
+    	left:-320px;
+    }
+
+    .container_8 .pull_5 {
+    	left:-400px;
+    }
+
+    .container_8 .pull_6 {
+    	left:-480px;
+    }
+
+    .container_8 .pull_7 {
+    	left:-560px;
+    }
+
+
+
+
+    /* Clear Floated Elements
+    ----------------------------------------------------------------------------------------------------*/
+
+    /* http://sonspring.com/journal/clearing-floats */
+
+    .clear {
+    	clear: both;
+    	display: block;
+    	overflow: hidden;
+    	visibility: hidden;
+    	width: 0;
+    	height: 0;
+    }
+
+    /* http://perishablepress.com/press/2008/02/05/lessons-learned-concerning-the-clearfix-css-hack */
+
+    .clearfix:after {
+    	clear: both;
+    	content: ' ';
+    	display: block;
+    	font-size: 0;
+    	line-height: 0;
+    	visibility: hidden;
+    	width: 0;
+    	height: 0;
+    }
+
+    .clearfix {
+    	display: inline-block;
+    }
+
+    * html .clearfix {
+    	height: 1%;
+    }
+
+    .clearfix {
+    	display: block;
+    }
+    
+    /*
+        ColorBox Core Style
+        The following rules are the styles that are consistant between themes.
+        Avoid changing this area to maintain compatability with future versions of ColorBox.
+    */
+    #colorbox, #cboxOverlay, #cboxWrapper{position:absolute; top:0; left:0; z-index:9999; overflow:hidden;}
+    #cboxOverlay{position:fixed; width:100%; height:100%;}
+    #cboxMiddleLeft, #cboxBottomLeft{clear:left;}
+    #cboxContent{position:relative; overflow:hidden;}
+    #cboxLoadedContent{overflow:auto;}
+    #cboxLoadedContent iframe{display:block; width:100%; height:100%; border:0;}
+    #cboxTitle{margin:0;}
+    #cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
+    #cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
+
+    /* 
+        ColorBox example user style
+        The following rules are ordered and tabbed in a way that represents the
+        order/nesting of the generated HTML, so that the structure easier to understand.
+    */
+    #cboxOverlay{background:#fff;}
+
+    #colorBox{}
+        #cboxTopLeft{width:25px; height:25px; background:url(http://static.tumblr.com/an3nrkp/ry6lbn86f/border1.png) 0 0 no-repeat;}
+        #cboxTopCenter{height:25px; background:url(http://static.tumblr.com/an3nrkp/ry6lbn86f/border1.png) 0 -50px repeat-x;}
+        #cboxTopRight{width:25px; height:25px; background:url(http://static.tumblr.com/an3nrkp/ry6lbn86f/border1.png) -25px 0 no-repeat;}
+        #cboxBottomLeft{width:25px; height:25px; background:url(http://static.tumblr.com/an3nrkp/ry6lbn86f/border1.png) 0 -25px no-repeat;}
+        #cboxBottomCenter{height:25px; background:url(http://static.tumblr.com/an3nrkp/ry6lbn86f/border1.png) 0 -75px repeat-x;}
+        #cboxBottomRight{width:25px; height:25px; background:url(http://static.tumblr.com/an3nrkp/ry6lbn86f/border1.png) -25px -25px no-repeat;}
+        #cboxMiddleLeft{width:25px; background:url(http://static.tumblr.com/an3nrkp/NZwlbn87x/border2.png) 0 0 repeat-y;}
+        #cboxMiddleRight{width:25px; background:url(http://static.tumblr.com/an3nrkp/NZwlbn87x/border2.png) -25px 0 repeat-y;}
+        #cboxContent{background:#fff;}
+            #cboxLoadedContent{margin-bottom:20px;}
+            #cboxTitle{position:absolute; bottom:0px; left:0; text-align:center; width:100%; color:#999;}
+            #cboxCurrent{position:absolute; bottom:0px; left:100px; color:#999;}
+            #cboxSlideshow{position:absolute; bottom:0px; right:42px; color:#444;}
+            #cboxPrevious{position:absolute; bottom:0px; left:0; color:#444;}
+            #cboxNext{position:absolute; bottom:0px; left:63px; color:#444;}
+            #cboxLoadingOverlay{background:url(../images/loading.gif) 5px 5px no-repeat #fff;}
+            #cboxClose{position:absolute; bottom:0; right:0; display:block; color:#444;}
+
+    /*
+        The following fixes png-transparency for IE6.  
+        It is also necessary for png-transparency in IE7 & IE8 to avoid 'black halos' with the fade transition
+
+        Since this method does not support CSS background-positioning, it is incompatible with CSS sprites.
+        Colorbox preloads navigation hover classes to account for this.
+
+        !! Important Note: AlphaImageLoader src paths are relative to the HTML document,
+        while regular CSS background ../images are relative to the CSS document.
+    */
+    .cboxIE #cboxTopLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://static.tumblr.com/an3nrkp/F06lbn8c1/bordertopleft.png, sizingMethod='scale');}
+    .cboxIE #cboxTopCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://static.tumblr.com/an3nrkp/LR4lbn8bj/bordertopcenter.png, sizingMethod='scale');}
+    .cboxIE #cboxTopRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://static.tumblr.com/an3nrkp/3hWlbn8cj/bordertopright.png, sizingMethod='scale');}
+    .cboxIE #cboxBottomLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://static.tumblr.com/an3nrkp/g7ylbn89j/borderbottomleft.png, sizingMethod='scale');}
+    .cboxIE #cboxBottomCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://static.tumblr.com/an3nrkp/0Rilbn88y/borderbottomcenter.png, sizingMethod='scale');}
+    .cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://static.tumblr.com/an3nrkp/zY8lbn8a2/borderbottomright.png, sizingMethod='scale');}
+    .cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://static.tumblr.com/an3nrkp/TKrlbn8aj/bordermiddleleft.png, sizingMethod='scale');}
+    .cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://static.tumblr.com/an3nrkp/1tWlbn8b3/bordermiddleright.png, sizingMethod='scale');}
+    
+    {CustomCSS}
+  </style>
+</head>
+<body>
+
+<div class="container_8">
+  <div class="top container clearfix">
+    <div class="grid_4 alpha">
+      <h1>{Title}</h1>
+    </div>
+  
+    <div class="grid_4 omega" style="text-align: center">
+      <h2>{Description}</h2>
+
+      <div class="vcard">
+        <a class="fn org url" href="{text:URL}">{Title}</a>
+        <div class="adr">
+          <span class="type">Work:</span>
+          <div class="street-address">{text:Street Address}</div>
+          <span class="locality">{text:City}</span><span class="locality-extra">,</span>
+          <abbr class="region" title="{text:State}">{text:State}</abbr>
+          <span class="postal-code">{text:Zip Code}</span>
+          <div class="country-name">{text:Country}</div>
+        </div>
+        <div class="tel phone">
+         <span class="type">Work</span> {text:Phone Number}
+        </div>
+        <div class="tel fax">
+          <span class="type">Fax</span> {text:Fax Number} (fax)
+        </div>
+        <div class="email">
+         <span class="email">{text:Email}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container clearfix">
+    {block:Posts}
+      {block:Post1} 
+        {block:Text}
+          <div class="post">{Body}</div>
+        {/block:Text}
+      {/block:Post1}
+    {block:Posts}
+    
+    <p class="footer">
+      &copy; {CopyrightYears} {Title} &middot; <a href="http://ops-theme.tumblr.com">OPS theme</a> <span class="flickr">&middot; Photos hosted by <a href="http://flickr.com/">Flickr</a></span>
+    </p>
+  </div>
+</div>
+
+{block:IfFlickrUserID}
+  {block:IfFlickrAPIKey}
+    <script type="text/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8">  
+      $(function(){
+        var apiKey = '{text:Flickr API Key}';
+        var userID = '{text:Flickr UserID}';
+        var tags = '{text:Flickr Tag}';
+
+        if (!apiKey || !userID) {
+          return true;
+        }
+
+        var baseURL = 'http://api.flickr.com/services/rest/';
+
+        var initialHTML = '\
+          <select id="choose_gallery" class="container"> \
+            <option value="">Loading...</option> \
+          </select> \
+          <div id="gallery" class="container clearfix"></div>';
+
+        $('p').first().after(initialHTML);
+
+        function loading() {
+          $('#gallery').html('<img id="loading" src="images/loading.gif" alt="Loading..." />');
+        }
+
+        function fadeIn(selector, preloadFirst) {
+          var preload = new Image();
+          preload.src = preloadFirst;
+
+          $(preload).load(function(){
+            if ($.browser.webkit) {
+              // let the .fade class do the work
+              $(selector).css('opacity', 1);
+            } else {
+              $(selector).animate({ opacity: 1 }, 600);
+            }
+          });
+        }
+
+        if (tags) {
+          var glamourURL = baseURL+'?method=flickr.photos.search&api_key='+apiKey+'&user_id='+userID+'&extras=url_z&tags='+tags+'&media=photos&format=json&jsoncallback=?';
+          $.getJSON(glamourURL, function(data) {
+            var photos = data.photos.photo;
+            var random = photos[Math.floor(Math.random() * photos.length)];
+            $("#gallery").append('<img src="'+random.url_z+'" class="rounded" style="width: '+random.width_z+'px; height: '+random.height_z+'px;" />');
+          });
+        }
+
+
+        var setsURL = baseURL+'?method=flickr.photosets.getList&api_key='+apiKey+'&user_id='+userID+'&format=json&jsoncallback=?';
+        $.getJSON(setsURL, function(data) {
+          $('#choose_gallery option:first').text('Choose a gallery of images to view...');    
+          $.each(data.photosets.photoset, function(index, photoset) {
+            $('#choose_gallery').append('<option value="'+photoset.id+'">'+photoset.title._content+'</option>');
+          });
+        });
+
+        $('#choose_gallery').change(function(){
+          var setID = $(this).val();
+
+          if (setID == '') {
+            return true;
+          } else {
+            loading();
+          }
+
+          var photosURL = baseURL+'?method=flickr.photosets.getPhotos&api_key='+apiKey+'&photoset_id='+setID+'&extras=url_sq,url_z&media=photos&format=json&jsoncallback=?';
+          $.getJSON(photosURL, function(data) {
+            $('#gallery').html('');
+
+            $.each(data.photoset.photo, function(index, photo) {
+              $('#gallery').append('<a href="'+photo.url_z+'" rel="colorbox" class="thumbnail rounded fade faded" id="thumbnail_'+photo.id+'" title="'+photo.title+'" style="background-image: url('+photo.url_sq+')"></a>');
+              setTimeout(function(){
+                fadeIn('#thumbnail_'+photo.id, photo.url_sq);
+              }, 20 + (index * 10));
+            });
+
+            $("#gallery a[rel='colorbox']").colorbox({ current: null });
+          });
+        });
+
+        $('.footer .flickr').show().find('a:first').each(function(){
+          $(this).attr('href', $(this).attr('href')+'photos/'+userID);
+        });;
+      });
+    </script>
+    <script type="text/javascript" charset="utf-8" src="http://static.tumblr.com/an3nrkp/gynlbn85g/jquery.colorbox-min.js"></script>
+  {/block:IfFlickrAPIKey}
+{/block:IfFlickrUserID}
+</body>
+</html>
