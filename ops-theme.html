@@ -11,9 +11,10 @@
     ///////   //       ////////
 
   OPS (One Page Site) theme for tumblr.
-  Version: 0.1.0
+  version: 0.1.0
   http://ops-theme.tumblr.com
-
+  http://github.com/javan/ops-theme
+  
   By Javan Makhmali
   http://javan.us
       
@@ -21,6 +22,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  
+  <!-- 
+    Modifying this theme directly will make upgrading it in the future more difficult.
+    Proceed only if you can't make the desired modifications using the "Customize"
+    control panel at http://tumblr.com
+  -->
   
   <meta name="text:URL" content="" />
   <meta name="if:Show URL" content="0" />
@@ -55,11 +62,15 @@
   <meta name="text:Flickr Tag" content="website" />
   <meta name="text:Flickr Gallery Placement" content="p" />
   
+  <meta name="text:Google Analytics Account" content="" />
+  
   <meta name="image:Logo" content="" />
   <meta name="text:Logo Width" content="300" />
   <meta name="text:Logo Height" content="175" />
   
   <meta name="image:Background" content="" />
+  
+  <meta name="if:Show Theme Link" content="1" />
   
   <meta name="color:Link" content="#0d2443" />
   <meta name="description" content="{MetaDescription}" />
@@ -83,6 +94,7 @@
       font-weight: 200;
       color: #111;
       text-shadow: 1px 1px 0px #f5f5f5;
+      text-rendering: optimizeLegibility;
     }
 
     h1 {
@@ -113,7 +125,7 @@
     a {
       color: {color:Link};
       text-decoration: none;
-      font-weight: 500;
+      font-weight: bold;
     }
     
     a:hover {
@@ -195,7 +207,7 @@
     p.footer {
       font-size: 11px;
       color: #666;
-      margin-top: 40px;
+      margin-top: 100px;
     }
       p.footer a { text-decoration: none; }
       p.footer .flickr { display: none; }
@@ -212,7 +224,6 @@
     }
     
     #gallery {
-      line-height: 0;
       margin-bottom: 50px;
       position: relative;
     }
@@ -221,6 +232,15 @@
       position: absolute;
       top: 0;
       left: 0;
+    }
+    
+    #gallery .set_description {
+      font-size: 13px;
+      font-style: italic;
+      color: #333;
+      border-left: 1px dashed #ccc;
+      margin: 0 0 0 6px;
+      padding: 2px 10px 2px 10px;
     }
     
     .thumbnail {
@@ -238,6 +258,12 @@
     
     .fade {
       -webkit-transition: opacity 0.6s linear;
+    }
+    
+    #cboxTitle {
+      font-size: 11px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     
     /*
@@ -557,6 +583,19 @@
     
     {CustomCSS}
   </style>
+  
+  {block:IfGoogleAnalyticsAccount}
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', '{text:Google Analytics Account}']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  {/block:IfGoogleAnalyticsAccount}
 </head>
 <body>
 
@@ -602,7 +641,11 @@
     {block:Posts}
     
     <p class="footer">
-      &copy; {CopyrightYears} {Title} &middot; <a href="http://ops-theme.tumblr.com">OPS theme</a> <span class="flickr">&middot; Photos hosted by <a href="http://flickr.com/">Flickr</a></span>
+      &copy; {CopyrightYears} {Title} 
+      {block:IfShowThemeLink}
+        &middot; <a href="http://ops-theme.tumblr.com">OPS theme</a>
+      {/block:IfShowThemeLink}
+      <span class="flickr">&middot; Photos hosted by <a href="http://flickr.com/">Flickr</a></span>
     </p>
   </div>
 </div>
@@ -657,7 +700,6 @@
           });
         }
 
-
         var setsURL = baseURL+'?method=flickr.photosets.getList&api_key='+apiKey+'&user_id='+userID+'&format=json&jsoncallback=?';
         $.getJSON(setsURL, function(data) {
           $('#choose_gallery option:first').text('Choose a gallery of images to view...');    
@@ -674,25 +716,32 @@
           } else {
             loading();
           }
-
           var photosURL = baseURL+'?method=flickr.photosets.getPhotos&api_key='+apiKey+'&photoset_id='+setID+'&extras=url_sq,url_z&media=photos&format=json&jsoncallback=?';
           $.getJSON(photosURL, function(data) {
             $('#gallery').html('');
-
+            
             $.each(data.photoset.photo, function(index, photo) {
               $('#gallery').append('<a href="'+photo.url_z+'" rel="colorbox" class="thumbnail rounded fade faded" id="thumbnail_'+photo.id+'" title="'+photo.title+'" style="background-image: url('+photo.url_sq+')"></a>');
               setTimeout(function(){
                 fadeIn('#thumbnail_'+photo.id, photo.url_sq);
               }, 20 + (index * 10));
             });
-
-            $("#gallery a[rel='colorbox']").colorbox({ current: null });
+          
+            $("#gallery a[rel='colorbox']").colorbox({ current: null, width: '75%', height: '85%' });
+            
+            var infoURL = baseURL+'?method=flickr.photosets.getInfo&api_key='+apiKey+'&photoset_id='+setID+'&format=json&jsoncallback=?';
+            $.getJSON(infoURL, function(data) {
+              var description = data.photoset.description._content;
+              if (description && description != '') {
+                $('#gallery').append('<div class="set_description container">'+description+'</div>');
+              }
+            });
           });
         });
 
         $('.footer .flickr').show().find('a:first').each(function(){
           $(this).attr('href', $(this).attr('href')+'photos/'+userID);
-        });;
+        });
       });
     </script>
     <script type="text/javascript" charset="utf-8" src="http://static.tumblr.com/an3nrkp/gynlbn85g/jquery.colorbox-min.js"></script>
